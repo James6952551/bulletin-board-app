@@ -8,8 +8,9 @@ import { headers } from "next/headers";
 import { authClient } from "./auth-client";
 
 export async function isUserAuthenticated(){
+    const requestHeaders = await headers();
     const session = await auth.api.getSession({
-        headers: await headers(),
+        headers: requestHeaders,
     });
 
     if ( !session ){ redirect('/user/sign-in'); }
@@ -17,9 +18,12 @@ export async function isUserAuthenticated(){
 
 export async function signOut() {
     try {
-        await authClient.signOut();
+        const requestHeaders = await headers();
+        await auth.api.signOut({
+            headers: requestHeaders,
+        });
     } catch (error) {
-        console.error("Sign out request failed, forcing redirect anyway:", error);
+        console.error("Sign out request failed:", error);
     }
 
     redirect('/user/sign-in');
@@ -68,14 +72,16 @@ export async function getUser(authorId: string){
 }
 
 export async function getUserId() {
+    const requestHeaders = await headers();
     const session = await auth.api.getSession({
-        headers: await headers(),
+        headers: requestHeaders,
     });
 
-    if ( !session ){ throw new Error('Unauthorized'); }
+    if (!session || !session.user) { 
+        throw new Error('Unauthorized'); 
+    }
 
-    const userId = session.user.id;
-    return userId;
+    return session.user.id;
 }
 
 export async function getComments(postId: string){
