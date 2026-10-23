@@ -1,5 +1,4 @@
 import Link from "next/link";
-export const instant = false;
 
 export default function MainLayout({ children } : { children: React.ReactNode }){
     return <div>
