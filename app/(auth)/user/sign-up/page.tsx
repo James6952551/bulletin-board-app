@@ -3,6 +3,8 @@ import { authClient } from "@/lib/auth-client";
 import { redirect, useRouter } from "next/navigation";
 
 export default function createUserPage(){
+    const router = useRouter();
+    
     const onSubmit = async (event: React.SubmitEvent<HTMLFormElement>) => {
         event.preventDefault();
 
@@ -10,8 +12,6 @@ export default function createUserPage(){
         const email = formData.get("email") as string;
         const password = formData.get("password") as string;
         const name = formData.get("name") as string;
-
-        const router = useRouter();
 
         const { data, error } = await authClient.signUp.email({
             email: email,
