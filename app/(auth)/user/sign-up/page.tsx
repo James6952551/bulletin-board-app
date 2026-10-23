@@ -1,6 +1,6 @@
 'use client';
 import { authClient } from "@/lib/auth-client";
-import { redirect } from "next/navigation";
+import { redirect, useRouter } from "next/navigation";
 
 export default function createUserPage(){
     const onSubmit = async (event: React.SubmitEvent<HTMLFormElement>) => {
@@ -11,12 +11,15 @@ export default function createUserPage(){
         const password = formData.get("password") as string;
         const name = formData.get("name") as string;
 
+        const router = useRouter();
+
         const { data, error } = await authClient.signUp.email({
             email: email,
             password: password,
             name: name,
         }, {
-            onSuccess: () => { redirect('/') },
+            onSuccess: () => { router.push('/');
+                               router.refresh(); },
             onError: (context) => { alert(context.error.message) },
         });
     };

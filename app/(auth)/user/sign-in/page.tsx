@@ -1,6 +1,7 @@
 'use client';
 import { authClient } from "@/lib/auth-client";
-import { redirect } from "next/navigation";
+import router from "next/dist/shared/lib/router/router";
+import { redirect, useRouter } from "next/navigation";
 
 export default function SignInPage(){
     const onSubmit = async (event: React.SubmitEvent<HTMLFormElement>) => {
@@ -10,11 +11,14 @@ export default function SignInPage(){
         const email = formData.get("email") as string;
         const password = formData.get("password") as string;
 
+        const router = useRouter();
+
         const {data, error} = await authClient.signIn.email({
             email,
             password,
         }, {
-            onSuccess: () => { redirect('/') },
+            onSuccess: () => { router.push('/');
+                               router.refresh(); },
             onError: (context) => { alert(context.error.message) },
         });       
     };
