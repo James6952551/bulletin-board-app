@@ -77,8 +77,8 @@ export async function getUserId() {
         headers: requestHeaders,
     });
 
-    if (!session || !session.user) { 
-        throw new Error('Unauthorized'); 
+    if (!session || !session.user) {
+        redirect('/user/sign-in');
     }
 
     return session.user.id;
