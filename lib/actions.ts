@@ -89,18 +89,6 @@ export async function getComments(postId: string){
     })
 }
 
-export async function createUser(userData:formUserData) {
-    const hashedPassword = await bcrypt.hash(userData.password, 10);
-    await prisma.user.create({
-        data: {
-            email: userData.email,
-            password: hashedPassword,
-            name: userData.name,
-        }
-    });
-    redirect('/');
-}
-
 export async function createPost(postData:formPostData){
     try {
     const userId = await getUserId();
