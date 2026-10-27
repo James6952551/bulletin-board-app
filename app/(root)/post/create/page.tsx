@@ -33,62 +33,89 @@ export default function createPostPage(){
         redirect('/');
         
     }
-    return <div className="w-lg border border-gray-500 rounded mx-auto flex px-4 py-8">
-        <form 
-            ref={formRef} 
-            onSubmit={onSubmit} 
-            className="flex flex-col space-y-6 w-lg"
-        >
-            <div className="flex flex-col gap-4">
-                <label htmlFor="title">Title</label>
-                <input 
-                    type="text" 
-                    name="title" 
-                    id="title" 
-                    required 
-                    className="border rounded px-2 flex-1" 
-                />
-            </div>
-            <div className="flex flex-col gap-4 h-40">
-                <label htmlFor="content">Content</label>
-                <textarea 
-                    name="content" 
-                    id="content" 
-                    required 
-                    className="border rounded px-2 flex-1 resize-none"
-                ></textarea>
-            </div>
-            <div className="flex flex-col gap-4">
-                <label htmlFor="category">Category</label>
-                <Select
-                    ref={categoryRef}
-                    name="category"
-                    closeMenuOnSelect={true}
-                    components={animatedComponents}                   
-                    options={Categories}
-                />
-            </div>
-            <div className="flex flex-col gap-4">
-                <label htmlFor="tag">
-                    Tag <span className="bg-blue-400 px-1 py-1 rounded text-sm text-white">Optional</span>
-                </label>
-                <Select
-                    ref={tagRef}
-                    name="tags"
-                    closeMenuOnSelect={false}
-                    components={animatedComponents}                   
-                    isMulti
-                    options={Tags}
-                />
-            </div>
-            
-            <button 
-                type="submit" 
-                className="border rounded bg-black text-white hover:bg-gray-900 py-2 cursor-pointer"
-            >
-                Post
-            </button>
-        </form>
-
+    return <div className="w-full max-w-xl bg-white border border-slate-100 shadow-xl rounded-2xl mx-auto p-8 sm:p-10">
+    <div className="mb-6">
+        <h2 className="text-2xl font-bold tracking-tight text-slate-900">Create New Post</h2>
+        <p className="text-sm text-slate-500 mt-1">Fill in the details below to publish your content.</p>
     </div>
+
+    <form 
+        ref={formRef} 
+        onSubmit={onSubmit} 
+        className="flex flex-col space-y-6"
+    >
+        {/* Title Field */}
+        <div className="flex flex-col space-y-2">
+            <label htmlFor="title" className="text-sm font-semibold text-slate-700">
+                Title
+            </label>
+            <input 
+                type="text" 
+                name="title" 
+                id="title" 
+                required 
+                placeholder="Enter a catchy title..."
+                className="w-full px-4 py-2.5 bg-slate-50/50 border border-slate-300 rounded-lg text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent transition-all duration-200" 
+            />
+        </div>
+
+        {/* Content Field */}
+        <div className="flex flex-col space-y-2">
+            <label htmlFor="content" className="text-sm font-semibold text-slate-700">
+                Content
+            </label>
+            <textarea 
+                name="content" 
+                id="content" 
+                required 
+                placeholder="Write your content here..."
+                className="w-full h-40 px-4 py-3 bg-slate-50/50 border border-slate-300 rounded-lg text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent resize-none transition-all duration-200"
+            ></textarea>
+        </div>
+
+        {/* Category Field */}
+        <div className="flex flex-col space-y-2">
+            <label htmlFor="category" className="text-sm font-semibold text-slate-700">
+                Category
+            </label>
+            <Select
+                ref={categoryRef}
+                name="category"
+                closeMenuOnSelect={true}
+                components={animatedComponents}                 
+                options={Categories}
+                classNamePrefix="react-select"
+            />
+        </div>
+
+        {/* Tag Field */}
+        <div className="flex flex-col space-y-2">
+            <div className="flex items-center justify-between">
+                <label htmlFor="tag" className="text-sm font-semibold text-slate-700">
+                    Tag
+                </label>
+                <span className="bg-slate-100 text-slate-600 px-2 py-0.5 rounded-full text-xs font-medium">
+                    Optional
+                </span>
+            </div>
+            <Select
+                ref={tagRef}
+                name="tags"
+                closeMenuOnSelect={false}
+                components={animatedComponents}                 
+                isMulti
+                options={Tags}
+                classNamePrefix="react-select"
+            />
+        </div>
+        
+        {/* Submit Button */}
+        <button 
+            type="submit" 
+            className="w-full mt-2 py-3 px-4 bg-black text-white font-medium rounded-lg shadow-sm hover:bg-slate-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-black active:scale-[0.99] cursor-pointer transition-all duration-200"
+        >
+            Post
+        </button>
+    </form>
+</div>
 }

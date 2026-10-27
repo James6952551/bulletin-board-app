@@ -20,7 +20,7 @@ interface PostDetailProps {
   post: Post;
   author: User | null;
   comments: Comment[];
-  currentUserId: string;
+  currentUserId: string | undefined;
 }
 
 export default function PostDetail({

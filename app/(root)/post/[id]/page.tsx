@@ -1,6 +1,6 @@
 import { getComments, getPost, getUser, getUserId } from "@/lib/actions";
 import PostDetail from "../../_component/PostDetail";
-import { notFound } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
 
 export const instant = false;
 

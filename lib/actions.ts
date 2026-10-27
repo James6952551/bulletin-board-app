@@ -1,11 +1,9 @@
 'use server';
-import bcrypt from "bcryptjs";
 import { prisma } from "./prisma";
 import { redirect } from "next/navigation";
-import { Comment, formCommentData, formPostData, formUserData, Post, User } from "./types";
+import { formCommentData, formPostData, Post, User } from "./types";
 import { auth } from "./auth";
 import { headers } from "next/headers";
-import { authClient } from "./auth-client";
 
 export async function isUserAuthenticated(){
     const requestHeaders = await headers();
@@ -78,7 +76,7 @@ export async function getUserId() {
     });
 
     if (!session || !session.user) {
-        redirect('/user/sign-in');
+        return undefined;
     }
 
     return session.user.id;
@@ -98,6 +96,7 @@ export async function getComments(postId: string){
 export async function createPost(postData:formPostData){
     try {
     const userId = await getUserId();
+    if (!userId) { redirect('/user/sign-in'); }
 
     await prisma.post.create({
         data:{
@@ -116,6 +115,7 @@ export async function createPost(postData:formPostData){
 export async function createComment(commentData:formCommentData) {
     try {
     const userId = await getUserId();
+    if (!userId) { redirect('/user/sign-in'); }
 
     await prisma.comment.create({
         data: {

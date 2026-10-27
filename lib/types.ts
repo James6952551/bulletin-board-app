@@ -1,11 +1,5 @@
 import { Prisma } from "@/generated/prisma/client";
 
-export type formUserData = {
-    email: string,
-    password: string,
-    name?: string,
-}
-
 export type formPostData = {
     title: string,
     content: string,

@@ -157,38 +157,42 @@ export default function UserDetail({
                 <h3 className="text-xl font-bold text-gray-900">Posts ({posts?.length || 0})</h3>
                 </div>
 
-                <div className="space-y-4">
+                <main className="lg:col-span-5 flex flex-col space-y-4">
                 {posts && posts.map((post) => {  
-                    return (
-                    <Link key={post.id} href={`/post/${post.id}`} className="block group">
-                        <Card className="shadow-lg hover:shadow-xl">
-                            <CardHeader>
-                                <CardTitle className="font-bold">{post.title}</CardTitle>
-                            </CardHeader>
-                            <CardContent>
-                                <p className="line-clamp-2">{post.content}</p>
-                            </CardContent>
-                            <CardFooter className="flex gap-4">
-                                <div className="flex gap-2 items-center">
-                                <MessageCircle className="w-4 h-4"/><p>{post.commentCount}</p>
-                                </div>
-                                {/*
-                                <div className="flex gap-2 items-center">
-                                <Heart className="w-4 h-4"/><p>{post.likeCount}</p>
-                                </div>
-                                */}
-                                <div className="flex gap-2 items-center">
-                                {post.tags.map((tag) => (
-                                    <p key={tag} className="bg-blue-200 rounded-full py-1 px-2">{tag}</p>
-                                ))}
-                                </div>
-                            </CardFooter>
-                            </Card>
+                return (
+                    <Link 
+                    key={post.id} 
+                    href={`/post/${post.id}`}
+                    className="block group"
+                    >
+                    <Card className="bg-white border border-slate-200/80 rounded-xl shadow-xs hover:shadow-md hover:border-slate-300 transition-all duration-200">
+                        <CardHeader className="pb-2">
+                        <CardTitle className="text-lg font-semibold text-slate-900 group-hover:text-blue-600 transition-colors">
+                            {post.title}
+                        </CardTitle>
+                        </CardHeader>
+                        <CardContent className="pb-4">
+                        <p className="text-slate-600 text-sm line-clamp-2 leading-relaxed">{post.content}</p>
+                        </CardContent>
+                        <CardFooter className="flex items-center justify-between text-xs text-slate-500">
+                        <div className="flex items-center gap-1.5 font-medium text-slate-600">
+                            <MessageCircle className="w-4 h-4 text-slate-400" />
+                            <span>{post.commentCount}</span>
+                        </div>
+                        
+                        <div className="flex items-center gap-1.5 flex-wrap">
+                            {post.tags.map((tag) => (
+                            <span key={tag} className="bg-blue-50 text-blue-600 font-medium px-2.5 py-0.5 rounded-full text-xs">
+                                {tag}
+                            </span>
+                            ))}
+                        </div>
+                        </CardFooter>
+                    </Card>
                     </Link>
                     )
-                })}
-                </div>
+                    })}
+                </main>
             </div>
-
             </div>
 }
